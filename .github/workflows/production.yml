@@ -29,7 +29,7 @@ jobs:
       - name: 🧹 JSON Linter Check
         run: |
           npm install -g jsonlint
-          jsonlint src/integration.json  # ✅ Fixed path
+          jsonlint src/telex-integration.json  # ✅ Fixed path
 
   deploy:
     name: 🚀 Deploy to Vercel

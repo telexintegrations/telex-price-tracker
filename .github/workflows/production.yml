@@ -30,13 +30,9 @@ jobs:
       - name: 🚀 Install Vercel CLI
         run: npm install -g vercel
 
-      - name: 🚀 Deploy to Vercel (Using Project & Org ID)
+      - name: 🚀 Deploy to Vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
         run: |
           cd src  # ✅ Ensure Vercel runs inside src/
-          vercel deploy --prod --yes --token $VERCEL_TOKEN \
-            --project-id $VERCEL_PROJECT_ID \
-            --org-id $VERCEL_ORG_ID
+          vercel deploy --prod --yes --token $VERCEL_TOKEN

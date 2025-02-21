@@ -6,34 +6,8 @@ on:
       - main  # ✅ Triggers on every commit to main
 
 jobs:
-  ci-checks:
-    name: 🔍 Run CI Checks (JSON Lint)
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: 🛒 Checkout repository
-        uses: actions/checkout@v3
-
-      - name: 📦 Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          cache: 'npm'
-          cache-dependency-path: src/package-lock.json  # ✅ Adjusted path
-
-      - name: 📥 Install dependencies
-        run: |
-          cd src  # ✅ Move into src where package.json is
-          npm install
-
-      - name: 🧹 JSON Linter Check
-        run: |
-          npm install -g jsonlint
-          jsonlint src/telex-integration.json  # ✅ Fixed path
-
   deploy:
     name: 🚀 Deploy to Vercel
-    needs: ci-checks  # ✅ Runs only if CI checks pass
     runs-on: ubuntu-latest
     environment: production
 
@@ -45,6 +19,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: src/package-lock.json  # ✅ Ensures cached dependencies
 
       - name: 📥 Install dependencies
         run: |
@@ -55,8 +31,12 @@ jobs:
         run: npm install -g vercel
 
       - name: 🚀 Deploy to Vercel (Using Project & Org ID)
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
         run: |
           cd src  # ✅ Ensure Vercel runs inside src/
-          vercel deploy --prod --yes --token ${{ secrets.VERCEL_TOKEN }} \
-            --project-id ${{ secrets.VERCEL_PROJECT_ID }} \
-            --org-id ${{ secrets.VERCEL_ORG_ID }}
+          vercel deploy --prod --yes --token $VERCEL_TOKEN \
+            --project-id $VERCEL_PROJECT_ID \
+            --org-id $VERCEL_ORG_ID

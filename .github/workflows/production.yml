@@ -52,5 +52,8 @@ jobs:
         run: |
           vercel env add COIN_GECKO_API_KEY ${{ secrets.COIN_GECKO_API_KEY }} --token ${{ secrets.VERCEL_TOKEN }}
 
-      - name: 🚀 Deploy to Vercel
-        run: vercel --prod --yes --token ${{ secrets.VERCEL_TOKEN }}
+      - name: 🚀 Deploy to Vercel (Using Project & Org ID)
+        run: |
+          vercel deploy --prod --yes --token ${{ secrets.VERCEL_TOKEN }} \
+            --project-id ${{ secrets.VERCEL_PROJECT_ID }} \
+            --org-id ${{ secrets.VERCEL_ORG_ID }}

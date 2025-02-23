@@ -44,8 +44,8 @@ This integration is useful for **crypto traders, enthusiasts, and communities** 
 
 ### 1️⃣ Clone the Repository
 ```sh
-git clone https://github.com/your-repo/telex-crypto-price-tracker.git
-cd telex-crypto-price-tracker/src
+git clone https://github.com/your-repo/telex-price-tracker.git
+cd telex-price-tracker/src
 ```
 
 ### 2️⃣ Install Dependencies

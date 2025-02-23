@@ -44,8 +44,8 @@ This integration is useful for **crypto traders, enthusiasts, and communities** 
 
 ### 1️⃣ Clone the Repository
 ```sh
-git clone https://github.com/your-repo/telex-price-tracker.git
-cd telex-price-tracker/src
+git clone https://github.com/your-repo/telex-crypto-price-tracker.git
+cd telex-crypto-price-tracker/src
 ```
 
 ### 2️⃣ Install Dependencies
@@ -154,7 +154,21 @@ Telex will automatically make POST request to your /tick endpoint and update the
 ```
 ![alt text](https://res.cloudinary.com/drkfpwuxd/image/upload/v1740311565/Screenshot_2025-02-23_125215_dtrwlc.png)
 ---
+## ⭐ Quick test
+### copy and paste in your terminal:
 
+```
+curl --location 'http://localhost:3300/tick' \
+--header 'Content-Type: application/json' \
+--data '{
+    "channel_id": "<your-test-telex-channel-id>",
+    "return_url": "https://ping.telex.im/v1/return/<your-test-telex-channel-id>",
+    "settings": []
+}'
+
+```
+
+---
 ## 🛠 Deployment
 ### **1️⃣ Deploying to Vercel**
 This project is set up with GitHub Actions to automatically deploy to **Vercel** when new changes are pushed to `main`.

@@ -1,7 +1,7 @@
 # Telex Crypto Price Tracker
 
 ## 📌 Overview
-The **Telex Crypto Price Tracker** is a Telex Interval Integration that automatically posts real-time cryptocurrency price updates to a Telex channel at regular intervals. It fetches crypto prices from the **CoinGecko API** and sends updates to a Telex webhook.
+The **Telex Crypto Price Tracker** is a Telex Interval Integration that automatically posts real-time cryptocurrency price updates to a Telex channel at regular intervals. It fetches crypto prices from the **CoinGecko API** and sends updates to a Telex webhook via the channels return_url.
 
 This integration is useful for **crypto traders, enthusiasts, and communities** who want to stay updated on market movements without manually checking prices.
 
@@ -27,14 +27,14 @@ This integration is useful for **crypto traders, enthusiasts, and communities** 
 ## 📂 Project Structure
 ```sh
 📁 telex-crypto-price-tracker
-├── 📄 src                  # Main Express server
-    ├── 📄 app.js 
+├── 📄 src                         # Main Express folder
+    ├── 📄 app.js                      # Main Express server
     ├── 📄 telex-func.js               # Crypto fetching and webhook handler
-    ├── 📄 telex-integration.js      # Integration metadata
+    ├── 📄 telex-integration.js        # Integration metadata
     ├── 📄 .env                        # Environment variables
     ├── 📄 package.json                # Dependencies and scripts
     ├── 📄 .gitignore                  # Dependencies and scripts
-├── 📄 vercel.json                     # Vercel configuration
+├── 📄 vercel.json                 # Vercel configuration
 └── 📄 README.md                   # Project documentation
 ```
 
@@ -54,16 +54,28 @@ npm install
 ```
 
 ### 3️⃣ Set Up Environment Variables
+Navigate to CoinGecko developers home page and get a demo api-key
+
 Create a `.env` file in the project root and add:
 ```sh
 COIN_GECKO_API_KEY=<Your_CoinGecko_API_Key>
 ```
 
+---
+
 ### 4️⃣ Run the Server
 ```sh
-node app.js
+npm run dev
 ```
 The server will start on `http://localhost:3300`
+
+---
+
+### 5️⃣ Create A Channel On Telex:
+
+Navigate to telex. Follow their documentation `http://telex.im/` to configure your app and create a new channel. Name it "crypto-price-update".
+
+![alt text](https://res.cloudinary.com/drkfpwuxd/image/upload/v1740311564/Screenshot_2025-02-23_125152_e6vu9i.png)
 
 ---
 
@@ -75,22 +87,55 @@ The server will start on `http://localhost:3300`
 ```json
 {
   "data": {
-    "app_name": "Telex Crypto App",
-    "app_description": "Automatically posts real-time cryptocurrency price updates",
+    "date": {
+      "created_at": "2025-02-18",
+      "updated_at": "2025-02-21"
+    },
+    "descriptions": {
+      "app_name": "Telex Crypto App",
+      "app_description": "a Telex Interval Integration that automatically posts real-time cryptocurrency price updates to a Telex channel at regular intervals",
+      "app_logo": "https://res.cloudinary.com/drkfpwuxd/image/upload/v1740098440/logo-brand-font-crypto-240c218ef900cc5ce69418df2360d5de_d3y6qu.png",
+      "app_url": "https://telex-price-tracker1.vercel.app",
+      "background_color": "#4A90E2"
+    },
+    "is_active": true,
+    "integration_category": "Monitoring & Logging",
+    "integration_type": "interval",
     "key_features": [
-      "Tracks BTC, ETH, SOL prices",
-      "Includes 24-hour price changes",
-      "Sends updates to Telex platform"
+      "It will track the prices of Bitcoin (BTC), Ethereum (ETH), and Solana (SOL)",
+      "along side with their respective 24-hour percentage changes",
+      "sends formatted messages to the Telex platform",
+      "Useful to crypto traders, enthusiasts, and communities that want to stay updated on market movements without manually checking prices"
     ],
     "author": "James Kehinde",
+    "settings": [
+      {
+        "label": "interval",
+        "type": "text",
+        "required": true,
+        "default": "* * * * *"
+      }
+    ],
     "version": "1.0.0",
-    "tick_url": "https://telex-crypto-price-tracker.vercel.app/tick"
+    "tick_url": "https://telex-price-tracker1.vercel.app/tick",
+    "target_url": ""
   }
 }
 ```
 
+---
+### 6️⃣ Connect your application:
+Copy the "fetch integration.json url" `http://localhost:3300/integration.json` and paste in the "add new integration" url space in the telex App section.
+
+![alt text](https://res.cloudinary.com/drkfpwuxd/image/upload/v1740311564/Screenshot_2025-02-23_124458_yj3irv.png)
+
+
+
+---
 ### 🔹 Trigger Crypto Price Update
 **POST** `/tick`
+
+Telex will automatically make POST request to your /tick endpoint and update the response in the newly created telex channel.
 #### **Request Body:**
 ```json
 {
@@ -103,10 +148,11 @@ The server will start on `http://localhost:3300`
 ```json
 {
   "status": "success",
-  "message": "Crypto price update sent to Telex"
+  "message": "Message sent to Telex"
 }
-```
 
+```
+![alt text](https://res.cloudinary.com/drkfpwuxd/image/upload/v1740311565/Screenshot_2025-02-23_125215_dtrwlc.png)
 ---
 
 ## 🛠 Deployment
@@ -137,5 +183,5 @@ This project is licensed under the **MIT License**.
 
 ## 📬 Contact
 📧 **Email:** jameskehinde101@gmail.com  
-🔗 **GitHub:** [github.com/Jhamis-hack](https://github.com/Jhamis-hack)  
+🔗 **GitHub:** [github.com/Jhaemis-hack](https://github.com/Jhaemis-hack)  
 

@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const integrationJson =async (req, res) =>{
-    base_url = 'https://telex-price-tracker1.vercel.app'
+    base_url = 'http://telex-price-tracker1.vercel.app'
 
     return res.json({
         "data": {
